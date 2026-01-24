@@ -18,63 +18,67 @@ export default function Home() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, delay: 2.2, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* BACKGROUND IMAGE */}
+        {/* BACKGROUND IMAGE LAYER */}
         <div className="absolute inset-0 w-full h-full -z-10">
           <Image
             src="/hero-portrait.png"
             alt="Portrait"
             fill
-            // Keep centered horizontally, shift down 25% vertically to show face
-            className="object-cover object-[center_25%] absolute inset-0"
+            className="object-cover object-[center_30%] absolute inset-0"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40 z-10" />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 z-10" />
         </div>
 
-        {/* CONTENT GRID */}
-        <div className="relative z-20 h-full w-full grid grid-cols-1 md:grid-cols-12 p-6 md:p-10 pointer-events-none">
+        {/* CONTENT GRID LAYER */}
+        {/* FIX: Changed grid-cols-10 to grid-cols-12 so the columns (5+3+4) fit on one line */}
+        <div className="relative z-20 h-full w-full grid grid-cols-1 md:grid-cols-12 p-5 md:p-10 pointer-events-none">
 
-          {/* LEFT COLUMN: TITLE (Cols 1-4) */}
-          <div className="col-span-1 md:col-span-4 flex flex-col justify-center h-full pointer-events-auto">
+          {/* LEFT COLUMN: BRAND NAME (Spans 5 cols) */}
+          <div className="col-span-1 md:col-span-5 flex flex-col justify-center pb-52 h-full pointer-events-auto">
+
             <motion.h1
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.4, duration: 0.8 }}
-              className="text-5xl md:text-7xl font-bold text-white uppercase leading-[0.9] tracking-tight font-[family-name:var(--font-diamond)]"
+              className="text-5xl md:text-7xl lg:text-[5rem] font-bold text-white uppercase leading-[0.9] tracking-tight font-[family-name:var(--font-diamond)]"
             >
-              Darlight<br />
+              DarkLight<br />
               Studio
             </motion.h1>
-            <motion.p
+
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.6 }}
-              className="mt-6 text-white text-sm md:text-base tracking-wider uppercase font-extrabold pl-1"
+              className="mt-4"
             >
-              Product Strategist and Designer
-            </motion.p>
+              <span className="bg-white/80 backdrop-blur-sm px-3 py-1 rounded-md text-black text-sm tracking-widest uppercase font-medium">
+                Product Strategist and Designer
+              </span>
+            </motion.div>
           </div>
 
-          {/* CENTER COLUMN: EMPTY SPACER (Cols 5-8) - FIXED WIDTH */}
-          {/* Adjusted from col-span-8 to col-span-4 to make room for the right side */}
-          <div className="hidden md:block col-span-4"></div>
+          {/* CENTER COLUMN: EMPTY (Spans 3 cols) */}
+          <div className="hidden md:block col-span-3"></div>
 
-          {/* RIGHT COLUMN: RESTORED CONTENT (Cols 9-12) */}
-          <div className="col-span-1 md:col-span-4 flex flex-col justify-center items-end h-full pointer-events-auto">
+          {/* RIGHT COLUMN: DESCRIPTION (Spans 4 cols) */}
+          {/* This places the content in the bottom-right corner */}
+          <div className="col-span-1 md:col-span-4 flex flex-col justify-end items-end h-full pointer-events-auto pb-8 md:pb-12">
             <motion.p
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1.8, duration: 0.8 }}
-              // Small size, aligned right, max-width constrained
-              className="text-white/90 text-sm md:text-base font-medium leading-relaxed text-right max-w-[280px] font-[family-name:var(--font-space)]"
+              transition={{ delay: 1.6, duration: 0.8 }}
+              className="text-[11px] md:text-xs font-sans leading-tight text-right max-w-[240px] drop-shadow-md"
+              style={{ color: "#E2D4B7" }}
             >
-              Merging shadow and light, strategy and intuition.
-              We forge designs that tell a story and define a presence.
+              DarkLight Studio illuminates possibilities. Merging shadow and light, strategy and intuition, to forge designs that are both profound and impactful. My work doesn't just occupy space; it tells a story and defines a presence.
             </motion.p>
           </div>
 
           {/* NAVBAR POSITIONING */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-auto">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-auto">
             <FloatingNav />
           </div>
 
@@ -87,7 +91,7 @@ export default function Home() {
           <div className="w-full">
             <h2 className="text-4xl md:text-5xl font-bold text-black mb-8 font-[family-name:var(--font-diamond)]">01 — About</h2>
             <p className="text-xl md:text-2xl text-neutral-800 max-w-3xl leading-relaxed font-medium">
-              I create digital experiences that merge strategy with intuition. We forge designs that tell a story and define a presence.
+              I create digital experiences that merge strategy with intuition.
             </p>
           </div>
         </Section>
