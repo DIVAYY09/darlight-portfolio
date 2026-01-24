@@ -34,14 +34,12 @@ export default function Home() {
         {/* CONTENT GRID */}
         <div className="relative z-20 h-full w-full grid grid-cols-1 md:grid-cols-12 p-6 md:p-10 pointer-events-none">
 
-          {/* LEFT COLUMN: TEXT (Reduced width and font size) */}
-          {/* Changed col-span-5 to col-span-4 to give the face more room */}
+          {/* LEFT COLUMN: TITLE (Cols 1-4) */}
           <div className="col-span-1 md:col-span-4 flex flex-col justify-center h-full pointer-events-auto">
             <motion.h1
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.4, duration: 0.8 }}
-              // REDUCED FONT SIZE: Changed from text-[7rem] to text-5xl/7xl
               className="text-5xl md:text-7xl font-bold text-white uppercase leading-[0.9] tracking-tight font-[family-name:var(--font-diamond)]"
             >
               Darlight<br />
@@ -51,18 +49,31 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.6 }}
-              // UPDATED SUBTITLE: Bolder white text. (Black would be invisible here)
               className="mt-6 text-white text-sm md:text-base tracking-wider uppercase font-extrabold pl-1"
             >
               Product Strategist and Designer
             </motion.p>
           </div>
 
-          {/* CENTER/RIGHT COLUMNS (Empty for image focus) */}
-          <div className="hidden md:block col-span-8"></div>
+          {/* CENTER COLUMN: EMPTY SPACER (Cols 5-8) - FIXED WIDTH */}
+          {/* Adjusted from col-span-8 to col-span-4 to make room for the right side */}
+          <div className="hidden md:block col-span-4"></div>
 
-          {/* NAVBAR POSITIONING (Shifted down) */}
-          {/* Changed bottom-8 to bottom-4 */}
+          {/* RIGHT COLUMN: RESTORED CONTENT (Cols 9-12) */}
+          <div className="col-span-1 md:col-span-4 flex flex-col justify-center items-end h-full pointer-events-auto">
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.8, duration: 0.8 }}
+              // Small size, aligned right, max-width constrained
+              className="text-white/90 text-sm md:text-base font-medium leading-relaxed text-right max-w-[280px] font-[family-name:var(--font-space)]"
+            >
+              Merging shadow and light, strategy and intuition.
+              We forge designs that tell a story and define a presence.
+            </motion.p>
+          </div>
+
+          {/* NAVBAR POSITIONING */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-auto">
             <FloatingNav />
           </div>
@@ -70,7 +81,7 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* PAGE CONTENT (White Background) */}
+      {/* PAGE CONTENT */}
       <div className="w-full max-w-[95%] mx-auto relative z-10 bg-[#f8f8f8] rounded-b-3xl pb-20 px-4 md:px-0 text-black">
         <Section id="about" className="min-h-[80vh] flex flex-col md:flex-row items-start justify-between py-24 md:py-32 border-b border-neutral-200">
           <div className="w-full">
