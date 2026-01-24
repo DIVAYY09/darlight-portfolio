@@ -93,8 +93,8 @@ export function About() {
             {/* 5. INSTRUCTION HINT */}
             <div className="absolute bottom-10 right-10 z-30 opacity-50">
                 <p className="text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-black text-right">
-                    [ CLASSIFIED INTEL ]<br />
-                    USE CURSOR TO REVEAL
+                    [ USE CURSOR TO REVEAL ]
+
                 </p>
             </div>
 
