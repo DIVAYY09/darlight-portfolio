@@ -1,12 +1,14 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
 import { useRef, useEffect } from "react";
+import Image from "next/image";
 import { PreLoader } from "@/components/PreLoader";
 import { FloatingNav } from "@/components/FloatingNav";
 import { About } from "@/components/About";
-import { Projects } from "@/components/Projects"; // Import the new section
+import { Projects } from "@/components/Projects";
+import { ToolsRibbon } from "@/components/ToolsRibbon"; // IMPORT
+import { Contact } from "@/components/Contact"; // IMPORT
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -32,8 +34,7 @@ export default function Home() {
           style={{ scale, opacity }}
           className="relative w-[95%] h-[92%] rounded-[40px] overflow-hidden bg-black isolate shadow-2xl"
         >
-          {/* ... HERO CONTENT (Keep your existing code here) ... */}
-          {/* IMAGE */}
+          {/* ... HERO CONTENT ... */}
           <div className="absolute inset-0 w-full h-full -z-10">
             <Image
               src="/hero-portrait.png"
@@ -90,20 +91,28 @@ export default function Home() {
               <FloatingNav />
             </div>
           </div>
-
         </motion.div>
       </div>
 
       {/* 2. ABOUT SECTION */}
-      {/* Reduced bottom margin to 0 to ensure seamless breach transition */}
       <div className="relative z-10 w-full min-h-screen bg-transparent mb-0">
         <div className="h-[20vh]" />
         <About />
       </div>
 
-      {/* 3. PROJECTS SECTION (THE BREACH) */}
+      {/* 3. PROJECTS SECTION */}
       <div className="relative z-10">
         <Projects />
+      </div>
+
+      {/* 4. TOOLS RIBBON (Wipe Animation) */}
+      <div className="relative z-20 bg-black">
+        <ToolsRibbon />
+      </div>
+
+      {/* 5. CONTACT (Gravity Well) */}
+      <div className="relative z-20">
+        <Contact />
       </div>
 
     </main>
