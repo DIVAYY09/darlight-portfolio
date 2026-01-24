@@ -2,10 +2,14 @@
 
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
+import { ContactModal } from "./ContactModal"; // IMPORT
 
 export function Contact() {
     const ref = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
+
+    // MODAL STATE
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         const { clientX, clientY } = e;
@@ -14,9 +18,7 @@ export function Contact() {
         const middleX = clientX - (left + width / 2);
         const middleY = clientY - (top + height / 2);
 
-        // PHYSICS UPDATE:
-        // Divisor = 1 means it moves exactly with your mouse (Very Strong Pull)
-        // Divisor < 1 would mean it moves FASTER than your mouse (Overshoot)
+        // PHYSICS: Strong Pull (1-to-1 movement)
         setPosition({ x: middleX / 1.2, y: middleY / 1.2 });
     };
 
@@ -43,13 +45,12 @@ export function Contact() {
             </div>
 
             {/* THE GRAVITY WELL TRIGGER ZONE */}
-            {/* We use a large padding (p-20) invisible box to capture the mouse early */}
             <motion.div
                 ref={ref}
+                onClick={() => setIsModalOpen(true)} // CLICK HANDLER
                 onMouseMove={handleMouseMove}
                 onMouseLeave={reset}
                 animate={{ x: position.x, y: position.y }}
-                // PHYSICS: stiffer = snappier, lower damping = more wobbly/alive
                 transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.1 }}
                 className="relative z-20 cursor-pointer group p-20"
             >
@@ -76,6 +77,12 @@ export function Contact() {
                     © 2026 DarkLight Studio
                 </div>
             </div>
+
+            {/* RENDER MODAL */}
+            <ContactModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
 
         </section>
     );

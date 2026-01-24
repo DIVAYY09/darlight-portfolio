@@ -48,7 +48,7 @@ export default function Home() {
 
           <div className="relative z-20 h-full w-full grid grid-cols-1 md:grid-cols-12 p-5 md:p-10 pointer-events-none">
             {/* Left Column */}
-            <div className="col-span-1 md:col-span-5 flex flex-col justify-center pb-24 h-full pointer-events-auto">
+            <div className="col-span-1 md:col-span-5 flex flex-col justify-center pb-52 h-full pointer-events-auto">
               <motion.h1
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
