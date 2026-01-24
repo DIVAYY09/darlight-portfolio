@@ -2,10 +2,11 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useRef, useEffect } from "react"; // Import useEffect
+import { useRef, useEffect } from "react";
 import { PreLoader } from "@/components/PreLoader";
 import { FloatingNav } from "@/components/FloatingNav";
 import { About } from "@/components/About";
+import { Projects } from "@/components/Projects"; // Import the new section
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -17,7 +18,6 @@ export default function Home() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
 
-  // NEW: Force scroll to top on page refresh/load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -26,13 +26,14 @@ export default function Home() {
     <main ref={containerRef} className="w-full relative selection:bg-yellow-400 selection:text-black bg-black">
       <PreLoader />
 
-      {/* 1. HERO SECTION (STICKY LAYER) */}
+      {/* 1. HERO SECTION */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden z-0">
         <motion.div
           style={{ scale, opacity }}
           className="relative w-[95%] h-[92%] rounded-[40px] overflow-hidden bg-black isolate shadow-2xl"
         >
-          {/* --- HERO CONTENT --- */}
+          {/* ... HERO CONTENT (Keep your existing code here) ... */}
+          {/* IMAGE */}
           <div className="absolute inset-0 w-full h-full -z-10">
             <Image
               src="/hero-portrait.png"
@@ -84,20 +85,25 @@ export default function Home() {
               </motion.p>
             </div>
 
-            {/* Navbar - Position fixed at bottom-2 */}
+            {/* Navbar */}
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-auto">
               <FloatingNav />
             </div>
           </div>
-          {/* --- END HERO CONTENT --- */}
+
         </motion.div>
       </div>
 
-      {/* 2. ABOUT SECTION (SCROLLING LAYER) */}
-      <div className="relative z-10 w-full min-h-screen bg-transparent">
-        {/* Spacer to delay the overlap slightly */}
+      {/* 2. ABOUT SECTION */}
+      {/* Reduced bottom margin to 0 to ensure seamless breach transition */}
+      <div className="relative z-10 w-full min-h-screen bg-transparent mb-0">
         <div className="h-[20vh]" />
         <About />
+      </div>
+
+      {/* 3. PROJECTS SECTION (THE BREACH) */}
+      <div className="relative z-10">
+        <Projects />
       </div>
 
     </main>
