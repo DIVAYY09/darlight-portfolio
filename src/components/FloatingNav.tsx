@@ -1,64 +1,43 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
 
-const navItems = [
-    { name: "Home", href: "#hero" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-
-    { name: "Connect +", href: "#contact" }, // Moved inside for dynamic animation
-];
-
-export function FloatingNav({ className }: { className?: string }) {
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
+export function FloatingNav() {
     return (
         <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1.5, duration: 0.8, ease: "easeOut" }}
-            className={cn("absolute bottom-2 left-1/2 -translate-x-1/2 z-40 w-auto", className)}
+            transition={{ delay: 2, duration: 1 }}
+            className="bg-black/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-6 shadow-2xl"
         >
-            <nav className="flex items-center gap-2 p-2 bg-neutral-900/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+            {/* 1. LINKEDIN LOGO BUTTON */}
+            <a
+                href="https://www.linkedin.com/in/pm-g/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20 hover:border-[#E2D4B7] transition-colors cursor-pointer"
+                title="Visit LinkedIn Profile"
+            >
+                {/* Replace with your actual logo image if you have one, or use a placeholder */}
+                <Image
+                    src="/pmlogo.png" // Using portrait as logo placeholder for now
+                    alt="Profile"
+                    fill
+                    className="object-cover"
+                />
+            </a>
 
-                {/* Left: Avatar/Logo */}
-                <Link href="/" className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-white/5 overflow-hidden shrink-0 hover:opacity-80 transition-opacity">
-                    <div className="relative w-full h-full p-1">
-                        <Image src="/pmlogo.png" alt="Logo" fill className="object-contain" />
-                    </div>
-                </Link>
+            {/* 2. NAVIGATION LINKS */}
+            <div className="h-4 w-[1px] bg-white/10" /> {/* Divider */}
 
-                {/* Center: Links with Sliding Pill Animation */}
-                <div className="flex items-center relative">
-                    {navItems.map((item, index) => (
-                        <Link
-                            key={item.name}
-                            href={item.href}
-                            onMouseEnter={() => setHoveredIndex(index)}
-                            onMouseLeave={() => setHoveredIndex(null)}
-                            className={cn(
-                                "relative px-4 py-2 text-xs uppercase tracking-widest font-bold transition-colors duration-200 z-10",
-                                // Text becomes black when hovered (because of white pill), otherwise white
-                                hoveredIndex === index ? "text-black" : "text-white/70"
-                            )}
-                        >
-                            {hoveredIndex === index && (
-                                <motion.span
-                                    layoutId="navbar-pill"
-                                    className="absolute inset-0 bg-white rounded-lg -z-10"
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
-                            )}
-                            {item.name}
-                        </Link>
-                    ))}
-                </div>
-            </nav>
+            <div className="flex gap-6 text-[10px] md:text-xs font-mono uppercase tracking-widest text-white/70">
+                <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-[#E2D4B7] transition-colors">Home</button>
+                <button onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })} className="hover:text-[#E2D4B7] transition-colors">About</button>
+                <button onClick={() => window.scrollTo({ top: window.innerHeight * 2, behavior: 'smooth' })} className="hover:text-[#E2D4B7] transition-colors">Work</button>
+                <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })} className="hover:text-[#E2D4B7] transition-colors">Connect +</button>
+            </div>
+
         </motion.div>
     );
 }

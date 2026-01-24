@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
-import { ContactModal } from "./ContactModal"; // IMPORT
+import { ContactModal } from "./ContactModal";
 
 export function Contact() {
     const ref = useRef<HTMLDivElement>(null);
@@ -14,11 +14,8 @@ export function Contact() {
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         const { clientX, clientY } = e;
         const { height, width, left, top } = ref.current?.getBoundingClientRect() || { height: 0, width: 0, left: 0, top: 0 };
-
         const middleX = clientX - (left + width / 2);
         const middleY = clientY - (top + height / 2);
-
-        // PHYSICS: Strong Pull (1-to-1 movement)
         setPosition({ x: middleX / 1.2, y: middleY / 1.2 });
     };
 
@@ -47,38 +44,34 @@ export function Contact() {
             {/* THE GRAVITY WELL TRIGGER ZONE */}
             <motion.div
                 ref={ref}
-                onClick={() => setIsModalOpen(true)} // CLICK HANDLER
+                onClick={() => setIsModalOpen(true)}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={reset}
                 animate={{ x: position.x, y: position.y }}
                 transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.1 }}
                 className="relative z-20 cursor-pointer group p-20"
             >
-                {/* THE ACTUAL BUTTON */}
                 <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-[#E2D4B7] flex items-center justify-center relative overflow-hidden transition-transform duration-300 group-hover:scale-110 shadow-[0_0_40px_rgba(226,212,183,0.3)]">
-
-                    {/* Ripple Effect */}
                     <div className="absolute inset-0 bg-white/40 scale-0 group-hover:scale-100 rounded-full transition-transform duration-500 ease-out" />
-
                     <span className="relative z-10 text-black font-bold text-lg md:text-xl uppercase tracking-widest group-hover:scale-110 transition-transform">
                         Let's Talk
                     </span>
                 </div>
             </motion.div>
 
-            {/* FOOTER LINKS */}
+            {/* FOOTER LINKS (UPDATED) */}
             <div className="absolute bottom-10 w-full flex justify-between px-10 text-neutral-500 text-xs font-mono uppercase tracking-widest pointer-events-auto">
                 <div className="flex gap-6">
-                    <a href="#" className="hover:text-[#E2D4B7] transition-colors">LinkedIn</a>
-                    <a href="#" className="hover:text-[#E2D4B7] transition-colors">Twitter</a>
-                    <a href="#" className="hover:text-[#E2D4B7] transition-colors">Email</a>
+                    <a href="https://www.linkedin.com/in/divay09/" target="_blank" rel="noopener noreferrer" className="hover:text-[#E2D4B7] transition-colors">LinkedIn</a>
+                    <a href="https://www.behance.net/designbydarklight" target="_blank" rel="noopener noreferrer" className="hover:text-[#E2D4B7] transition-colors">Behance</a>
+                    <a href="https://x.com/PM_Guy34" target="_blank" rel="noopener noreferrer" className="hover:text-[#E2D4B7] transition-colors">Twitter</a>
+                    <a href="mailto:divay034@gmail.com" className="hover:text-[#E2D4B7] transition-colors">Email</a>
                 </div>
                 <div>
                     © 2026 DarkLight Studio
                 </div>
             </div>
 
-            {/* RENDER MODAL */}
             <ContactModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
