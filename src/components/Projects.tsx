@@ -2,9 +2,10 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { ProjectModal, ProjectData } from "./ProjectModal";
 
-// ... (KEEP EXISTING DATA ARRAYS 'strategies' and 'designs' AS IS) ...
+// DUMMY DATA
 const strategies = [
     { id: "01", title: "NEURAL MARKET FIT", category: "Case Study", date: "2024", tags: ["AI", "Strategy", "Growth"] },
     { id: "02", title: "THE SILENT LAUNCH", category: "Tear Down", date: "2023", tags: ["Product", "Launch", "Viral"] },
@@ -89,20 +90,39 @@ export function Projects() {
                     className="absolute top-0 right-0 w-1/2 h-full bg-[#E8E8E8] z-50 border-l border-black/10 flex items-center justify-start pl-4 md:pl-10"
                 />
 
-                {/* === TITLE: PROJECT CONTROL PANEL === */}
-                <motion.div
-                    style={{ opacity: textOpacity, scale: textScale }}
-                    // ADDED: bg-[#E8E8E8] to cover the line
-                    className="absolute z-[60] pointer-events-none text-center bg-[#E8E8E8] p-10 rounded-3xl"
-                >
-                    <h2 className="text-4xl md:text-7xl font-bold text-neutral-800 uppercase tracking-tighter font-[family-name:var(--font-diamond)]">
-                        Project<br />Control Panel
-                    </h2>
-                    <div className="w-full h-[1px] bg-black/10 my-6" />
-                    <p className="text-xs font-mono text-neutral-500 uppercase tracking-[0.3em]">
-                // Accessing Secure Archives
-                    </p>
-                </motion.div>
+                {/* === TITLE: PROJECT CONTROL PANEL (FIXED POSITIONING) === */}
+                {/* We use a full-screen wrapper to ensure absolute centering */}
+                <div className="absolute inset-0 z-[60] flex items-center justify-center pointer-events-none">
+
+                    <motion.div
+                        style={{ opacity: textOpacity, scale: textScale }}
+                        className="relative text-center w-full max-w-4xl mx-auto flex flex-col items-center justify-center"
+                    >
+                        {/* 1. BACKGROUND IMAGE LAYER (The Red Brush Stroke) */}
+                        {/* Sized larger than text (150% width) to act as a background frame */}
+                        <div className="absolute w-[150%] h-[250%] -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                            <Image
+                                src="/panel-texture.png" // Make sure this file exists in public/
+                                alt="Paint Texture"
+                                fill
+                                className="object-contain" // Ensures the whole stroke is visible
+                                priority
+                            />
+                            {/* Blending Mode: Makes the white part of the JPEG transparent */}
+                            <div className="absolute inset-0 bg-[#E8E8E8] mix-blend-multiply" />
+                        </div>
+
+                        {/* 2. TEXT CONTENT */}
+                        <h2 className="text-4xl md:text-7xl font-bold text-neutral-900 uppercase tracking-tighter font-[family-name:var(--font-diamond)] relative z-10">
+                            Project<br />Control Panel
+                        </h2>
+                        <div className="w-64 h-[2px] bg-black/20 my-6 relative z-10" />
+                        <p className="text-xs font-mono text-neutral-600 uppercase tracking-[0.3em] font-bold relative z-10">
+                    // Accessing Secure Archives
+                        </p>
+
+                    </motion.div>
+                </div>
 
 
                 {/* === MAIN CONTENT === */}
@@ -127,7 +147,6 @@ export function Projects() {
                             <motion.div
                                 className="relative w-28 h-40 md:w-40 md:h-56 preserve-3d"
                                 animate={{ rotateY: rotation }}
-                                // SMOOTHER PHYSICS: Lower stiffness, adjusted damping
                                 transition={{ type: "spring", stiffness: 40, damping: 20 }}
                                 style={{ transformStyle: "preserve-3d" }}
                             >
