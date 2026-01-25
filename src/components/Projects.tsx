@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { ProjectModal, ProjectData } from "./ProjectModal";
 
-// DUMMY DATA
+// DUMMY DATA (STRATEGY KEPT INTACT)
 const strategies = [
     { id: "01", title: "NEURAL MARKET FIT", category: "Case Study", date: "2024", tags: ["AI", "Strategy", "Growth"] },
     { id: "02", title: "THE SILENT LAUNCH", category: "Tear Down", date: "2023", tags: ["Product", "Launch", "Viral"] },
@@ -15,11 +15,12 @@ const strategies = [
     { id: "06", title: "DARK PATTERN ETHICS", category: "Tear Down", date: "2025", tags: ["Ethics", "Design", "Analysis"] },
 ];
 
+// UPDATED DESIGN DATA (USING YOUR LANDSCAPE IMAGES)
 const designs = [
-    { color: "bg-red-500", text: "UI SYSTEM" },
-    { color: "bg-blue-500", text: "3D ASSETS" },
-    { color: "bg-purple-500", text: "MOTION" },
-    { color: "bg-green-500", text: "BRANDING" },
+    { img: "/design-1.png", text: "UI Motion" },
+    { img: "/design2.png", text: "UI Design" },
+    { img: "/design-3.png", text: "BRANDING" },
+    { img: "/design-4.png", text: "Sci-fi UI" },
 ];
 
 export function Projects() {
@@ -90,25 +91,22 @@ export function Projects() {
                     className="absolute top-0 right-0 w-1/2 h-full bg-[#E8E8E8] z-50 border-l border-black/10 flex items-center justify-start pl-4 md:pl-10"
                 />
 
-                {/* === TITLE: PROJECT CONTROL PANEL (FIXED POSITIONING) === */}
-                {/* We use a full-screen wrapper to ensure absolute centering */}
+                {/* === TITLE: PROJECT CONTROL PANEL === */}
                 <div className="absolute inset-0 z-[60] flex items-center justify-center pointer-events-none">
 
                     <motion.div
                         style={{ opacity: textOpacity, scale: textScale }}
                         className="relative text-center w-full max-w-4xl mx-auto flex flex-col items-center justify-center"
                     >
-                        {/* 1. BACKGROUND IMAGE LAYER (The Red Brush Stroke) */}
-                        {/* Sized larger than text (150% width) to act as a background frame */}
+                        {/* 1. BACKGROUND IMAGE LAYER */}
                         <div className="absolute w-[150%] h-[250%] -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                             <Image
-                                src="/panel-texture.png" // Make sure this file exists in public/
+                                src="/panel-texture.png"
                                 alt="Paint Texture"
                                 fill
-                                className="object-contain" // Ensures the whole stroke is visible
+                                className="object-contain"
                                 priority
                             />
-                            {/* Blending Mode: Makes the white part of the JPEG transparent */}
                             <div className="absolute inset-0 bg-[#E8E8E8] mix-blend-multiply" />
                         </div>
 
@@ -128,7 +126,7 @@ export function Projects() {
                 {/* === MAIN CONTENT === */}
                 <div className="w-full h-full max-w-[95%] grid grid-cols-1 md:grid-cols-2 gap-4 p-4 md:p-6 relative z-10">
 
-                    {/* --- LEFT CARD --- */}
+                    {/* --- LEFT CARD: DESIGN (UPDATED CAROUSEL) --- */}
                     <div className="relative w-full h-full bg-[#111] rounded-[30px] overflow-hidden border border-white/5 flex flex-col p-6 md:p-10">
                         <div className="flex justify-between items-start mb-4 md:mb-8 shrink-0">
                             <h3 className="text-4xl md:text-6xl font-bold text-white font-[family-name:var(--font-diamond)]">
@@ -145,7 +143,8 @@ export function Projects() {
                             onMouseLeave={() => setIsHovered(false)}
                         >
                             <motion.div
-                                className="relative w-28 h-40 md:w-40 md:h-56 preserve-3d"
+                                // CHANGED: Dimensions adjusted for Landscape images (w-48 h-32 / w-64 h-40)
+                                className="relative w-48 h-32 md:w-64 md:h-40 preserve-3d"
                                 animate={{ rotateY: rotation }}
                                 transition={{ type: "spring", stiffness: 40, damping: 20 }}
                                 style={{ transformStyle: "preserve-3d" }}
@@ -153,10 +152,22 @@ export function Projects() {
                                 {designs.map((item, i) => (
                                     <div
                                         key={i}
-                                        className={`absolute inset-0 rounded-xl ${item.color} opacity-90 flex items-center justify-center text-black font-bold text-lg md:text-xl border-2 border-white/10 shadow-2xl`}
-                                        style={{ transform: `rotateY(${i * 90}deg) translateZ(130px)` }}
+                                        // CHANGED: Removed color bg, added Image component and overlay
+                                        className="absolute inset-0 rounded-xl overflow-hidden border-2 border-white/10 shadow-2xl bg-black"
+                                        // CHANGED: Increased translateZ to 160px to accommodate wider landscape cards
+                                        style={{ transform: `rotateY(${i * 90}deg) translateZ(160px)` }}
                                     >
-                                        {item.text}
+                                        <Image
+                                            src={item.img}
+                                            alt={item.text}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                            <span className="text-white font-bold text-lg md:text-xl tracking-widest uppercase drop-shadow-md">
+                                                {item.text}
+                                            </span>
+                                        </div>
                                     </div>
                                 ))}
                             </motion.div>
@@ -174,7 +185,7 @@ export function Projects() {
                     </div>
 
 
-                    {/* --- RIGHT CARD --- */}
+                    {/* --- RIGHT CARD: STRATEGY (UNCHANGED) --- */}
                     <div className="relative w-full h-full bg-[#E8E8E8] rounded-[30px] overflow-hidden border border-black/5 flex flex-col">
                         <div className="absolute top-0 left-0 w-full p-8 md:p-12 z-20 bg-gradient-to-b from-[#E8E8E8] via-[#E8E8E8] to-transparent h-40 flex justify-between items-start pointer-events-none">
                             <h3 className="text-4xl md:text-6xl font-bold text-black font-[family-name:var(--font-diamond)]">
