@@ -9,6 +9,7 @@ import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
 import { ToolsRibbon } from "@/components/ToolsRibbon";
 import { Contact } from "@/components/Contact";
+import { BackToTop } from "@/components/BackToTop"; // IMPORT THIS
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -25,7 +26,6 @@ export default function Home() {
   }, []);
 
   return (
-    // REVERTED: Main background back to Black to match Hero
     <main ref={containerRef} className="w-full relative selection:bg-yellow-400 selection:text-black bg-black">
       <PreLoader />
 
@@ -33,7 +33,6 @@ export default function Home() {
       <div id="home" className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden z-0">
         <motion.div
           style={{ scale, opacity }}
-          // REVERTED: bg-[#E2D4B7] -> bg-black
           className="relative w-[95%] h-[92%] rounded-[40px] overflow-hidden bg-black isolate shadow-2xl"
         >
           {/* IMAGE */}
@@ -45,7 +44,6 @@ export default function Home() {
               className="object-cover object-[center_30%] absolute inset-0"
               priority
             />
-            {/* REVERTED: Gradient back to Black */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 z-10" />
           </div>
 
@@ -56,7 +54,6 @@ export default function Home() {
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1.4, duration: 0.8 }}
-                // REVERTED: text-black -> text-white
                 className="text-5xl md:text-7xl lg:text-[6rem] font-bold text-white uppercase leading-[0.9] tracking-tight font-[family-name:var(--font-diamond)]"
               >
                 DarkLight<br />
@@ -68,7 +65,6 @@ export default function Home() {
                 transition={{ delay: 1.6 }}
                 className="mt-4"
               >
-                {/* REVERTED: Black pill -> White pill */}
                 <span className="bg-white/80 backdrop-blur-sm px-3 py-1 rounded-md text-black text-sm tracking-widest uppercase font-medium">
                   Product Strategist and Designer
                 </span>
@@ -84,7 +80,6 @@ export default function Home() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1.6, duration: 0.8 }}
-                // REVERTED: text color back to Gold/Beige
                 className="text-[11px] md:text-xs font-sans leading-tight text-right max-w-[240px] drop-shadow-md"
                 style={{ color: "#E2D4B7" }}
               >
@@ -120,6 +115,9 @@ export default function Home() {
       <div id="contact" className="relative z-20">
         <Contact />
       </div>
+
+      {/* 6. BACK TO TOP LEVER (ADDED HERE) */}
+      <BackToTop />
 
     </main>
   );
