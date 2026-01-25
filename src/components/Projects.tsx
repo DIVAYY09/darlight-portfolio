@@ -2,9 +2,9 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { ProjectModal, ProjectData } from "./ProjectModal"; // IMPORT THE MODAL
+import { ProjectModal, ProjectData } from "./ProjectModal";
 
-// DUMMY DATA
+// ... (KEEP EXISTING DATA ARRAYS 'strategies' and 'designs' AS IS) ...
 const strategies = [
     { id: "01", title: "NEURAL MARKET FIT", category: "Case Study", date: "2024", tags: ["AI", "Strategy", "Growth"] },
     { id: "02", title: "THE SILENT LAUNCH", category: "Tear Down", date: "2023", tags: ["Product", "Launch", "Viral"] },
@@ -24,11 +24,9 @@ const designs = [
 export function Projects() {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // MODAL STATE
     const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // HANDLERS
     const openModal = (data: ProjectData) => {
         setSelectedProject(data);
         setIsModalOpen(true);
@@ -36,32 +34,29 @@ export function Projects() {
 
     const closeModal = () => {
         setIsModalOpen(false);
-        // slight delay to clear data after animation could be added, but not strictly necessary
     };
 
-    // Specific handler for the "View Blueprints" button
     const handleDesignClick = () => {
         openModal({
             title: "VISUAL BLUEPRINTS",
             category: "Design System",
             date: "INTERNAL",
             tags: ["Figma", "3D", "Motion", "System"],
-            description: "A comprehensive look at the visual language governing the DarkLight ecosystem. This design system prioritizes high-contrast legibility, kinetic typography, and immersive 3D interactions."
+            description: "A comprehensive look at the visual language governing the DarkLight ecosystem."
         });
     };
 
-    // SCROLL HOOKS
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end end"],
     });
 
     // ANIMATIONS
-    const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-    const textScale = useTransform(scrollYProgress, [0, 0.1], [1, 1.1]);
-    const breachLeftX = useTransform(scrollYProgress, [0.1, 0.25], ["0%", "-100%"]);
-    const breachRightX = useTransform(scrollYProgress, [0.1, 0.25], ["0%", "100%"]);
-    const listY = useTransform(scrollYProgress, [0.25, 1], ["0%", "-60%"]);
+    const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+    const textScale = useTransform(scrollYProgress, [0, 0.15], [1, 1.1]);
+    const breachLeftX = useTransform(scrollYProgress, [0.15, 0.3], ["0%", "-100%"]);
+    const breachRightX = useTransform(scrollYProgress, [0.15, 0.3], ["0%", "100%"]);
+    const listY = useTransform(scrollYProgress, [0.3, 1], ["0%", "-60%"]);
 
     // AUTO-ROTATION
     const [rotation, setRotation] = useState(0);
@@ -71,7 +66,7 @@ export function Projects() {
         if (isHovered) return;
         const interval = setInterval(() => {
             setRotation((prev) => prev + 90);
-        }, 3000);
+        }, 2000);
         return () => clearInterval(interval);
     }, [isHovered]);
 
@@ -84,7 +79,7 @@ export function Projects() {
             {/* STICKY VIEWPORT */}
             <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
 
-                {/* === BREACH DOORS & TITLE === */}
+                {/* === BREACH DOORS === */}
                 <motion.div
                     style={{ x: breachLeftX }}
                     className="absolute top-0 left-0 w-1/2 h-full bg-[#E8E8E8] z-50 border-r border-black/10 flex items-center justify-end pr-4 md:pr-10"
@@ -93,14 +88,18 @@ export function Projects() {
                     style={{ x: breachRightX }}
                     className="absolute top-0 right-0 w-1/2 h-full bg-[#E8E8E8] z-50 border-l border-black/10 flex items-center justify-start pl-4 md:pl-10"
                 />
+
+                {/* === TITLE: PROJECT CONTROL PANEL === */}
                 <motion.div
                     style={{ opacity: textOpacity, scale: textScale }}
-                    className="absolute z-[60] pointer-events-none text-center"
+                    // ADDED: bg-[#E8E8E8] to cover the line
+                    className="absolute z-[60] pointer-events-none text-center bg-[#E8E8E8] p-10 rounded-3xl"
                 >
-                    <h2 className="text-3xl md:text-6xl font-bold text-neutral-400/80 uppercase tracking-widest font-[family-name:var(--font-diamond)]">
+                    <h2 className="text-4xl md:text-7xl font-bold text-neutral-800 uppercase tracking-tighter font-[family-name:var(--font-diamond)]">
                         Project<br />Control Panel
                     </h2>
-                    <p className="mt-4 text-xs font-mono text-neutral-500 uppercase tracking-[0.3em]">
+                    <div className="w-full h-[1px] bg-black/10 my-6" />
+                    <p className="text-xs font-mono text-neutral-500 uppercase tracking-[0.3em]">
                 // Accessing Secure Archives
                     </p>
                 </motion.div>
@@ -128,7 +127,8 @@ export function Projects() {
                             <motion.div
                                 className="relative w-28 h-40 md:w-40 md:h-56 preserve-3d"
                                 animate={{ rotateY: rotation }}
-                                transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                                // SMOOTHER PHYSICS: Lower stiffness, adjusted damping
+                                transition={{ type: "spring", stiffness: 40, damping: 20 }}
                                 style={{ transformStyle: "preserve-3d" }}
                             >
                                 {designs.map((item, i) => (
@@ -144,7 +144,6 @@ export function Projects() {
                         </div>
 
                         <div className="mt-auto flex justify-center w-full shrink-0 pt-4">
-                            {/* BUTTON WITH CLICK HANDLER */}
                             <button
                                 onClick={handleDesignClick}
                                 className="group w-fit px-6 py-3 bg-white text-black font-bold uppercase tracking-widest rounded-full hover:bg-yellow-400 transition-colors flex items-center gap-4 text-xs md:text-sm"
@@ -172,7 +171,7 @@ export function Projects() {
                                 {strategies.map((strategy, index) => (
                                     <div
                                         key={index}
-                                        onClick={() => openModal(strategy)} // CLICK HANDLER
+                                        onClick={() => openModal(strategy)}
                                         className="group relative w-full h-24 md:h-32 border-b border-black/10 flex items-center justify-between cursor-pointer overflow-hidden rounded-lg px-4"
                                     >
                                         <div className="absolute inset-0 bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-0" />
@@ -200,7 +199,6 @@ export function Projects() {
                 </div>
             </div>
 
-            {/* --- RENDER THE MODAL --- */}
             <ProjectModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
