@@ -83,7 +83,7 @@ export default function Home() {
                 className="text-[11px] md:text-xs font-sans leading-tight text-right max-w-[240px] drop-shadow-md"
                 style={{ color: "#E2D4B7" }}
               >
-                DarkLight Studio illuminate possibilities. Merging shadow and light, strategy and intuition, to forge designs that are both profound and impactful. My work doesn't just occupy space; it tells a story and defines a presence.
+                I illuminates possibilities. Merging shadow and light, strategy and intuition, to forge designs that are both profound and impactful. My work doesn't just occupy space; it tells a story and defines a presence.
               </motion.p>
             </div>
 

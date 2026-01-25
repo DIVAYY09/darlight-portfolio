@@ -11,6 +11,8 @@ export interface ProjectData {
     tags?: string[];
     description?: string;
     notionLink?: string; // Added for external redirects
+    role?: string;
+    images?: string[];
 }
 
 interface ProjectModalProps {

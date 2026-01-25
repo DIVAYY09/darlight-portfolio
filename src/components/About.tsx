@@ -17,9 +17,21 @@ export function About() {
         });
     };
 
+    // ADDED: Track Touch for Mobile Devices
+    const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        // Use the first touch point
+        const touch = event.touches[0];
+        setMousePosition({
+            x: touch.clientX - rect.left,
+            y: touch.clientY - rect.top,
+        });
+    };
+
     // Content component for reusability
     const Content = ({ isRevealLayer }: { isRevealLayer?: boolean }) => (
-        <div className="text-left w-full max-w-7xl">
+        <div className="text-left w-full max-w-7xl pointer-events-none">
             <span className="block mb-4 text-4xl md:text-7xl font-bold tracking-tighter uppercase font-[family-name:var(--font-diamond)]">
                 I’m Divay.
             </span>
@@ -37,11 +49,11 @@ export function About() {
         <section
             ref={containerRef}
             onMouseMove={handleMouseMove}
+            onTouchMove={handleTouchMove} // ADDED: Touch Listener
             className="relative min-h-screen w-full bg-[#E8E8E8] rounded-t-[40px] flex flex-col justify-center items-start pl-6 md:pl-20 overflow-hidden cursor-none"
         >
-            {/* 1. "DECLASSIFIED" HEADER (Moved Up) */}
-            {/* CHANGED: top-16 md:top-24 -> top-12 md:top-16 (Creates more space above) */}
-            <div className="absolute top-12 md:top-16 left-6 md:left-20 z-40">
+            {/* 1. "DECLASSIFIED" HEADER */}
+            <div className="absolute top-12 md:top-16 left-6 md:left-20 z-40 pointer-events-none">
                 <motion.div
                     initial={{ width: 0, borderRight: "2px solid #000" }}
                     whileInView={{ width: "100%", borderRight: "0px solid #000" }}
@@ -55,16 +67,14 @@ export function About() {
                 </motion.div>
             </div>
 
-            {/* 2. BACKGROUND TEXT (Ghost Layer) - Pushed Down */}
-            {/* CHANGED: Added pt-24 md:pt-32 to push text down away from the header */}
+            {/* 2. BACKGROUND TEXT (Ghost Layer) */}
             <div className="absolute inset-0 flex flex-col justify-center items-start pl-6 md:pl-20 pt-24 md:pt-32 pointer-events-none select-none">
                 <div className="text-neutral-300/60">
                     <Content />
                 </div>
             </div>
 
-            {/* 3. FOREGROUND TEXT (Real Layer) - Pushed Down to Match */}
-            {/* CHANGED: Added pt-24 md:pt-32 to match ghost layer position */}
+            {/* 3. FOREGROUND TEXT (Real Layer) */}
             <motion.div
                 className="absolute inset-0 flex flex-col justify-center items-start pl-6 md:pl-20 pt-24 md:pt-32 pointer-events-none select-none z-10"
                 animate={{
@@ -91,10 +101,9 @@ export function About() {
             </div>
 
             {/* 5. INSTRUCTION HINT */}
-            <div className="absolute bottom-10 right-10 z-30 opacity-50">
+            <div className="absolute bottom-10 right-10 z-30 opacity-50 pointer-events-none">
                 <p className="text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-black text-right">
                     [ USE CURSOR TO REVEAL ]
-
                 </p>
             </div>
 

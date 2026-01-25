@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { ProjectModal, ProjectData } from "./ProjectModal";
 
-// UPDATED STRATEGY DATA WITH 2025 ID
+// STRATEGY DATA (Your Latest 2025 Data)
 const strategies: ProjectData[] = [
     {
         id: "01",
@@ -61,7 +61,7 @@ const strategies: ProjectData[] = [
     },
 ];
 
-// DESIGN DATA (INTACT)
+// DESIGN DATA (Your Images)
 const designs = [
     {
         img: "/design-1.png",
@@ -118,9 +118,10 @@ export function Projects() {
         openModal({
             title: currentData.text,
             category: currentData.category,
-            date: "2025", // Updated to 2025
+            date: "2025",
             tags: currentData.tags,
-            description: currentData.description
+            description: currentData.description,
+            images: [currentData.img]
         });
     };
 
@@ -139,10 +140,14 @@ export function Projects() {
 
     return (
         <section ref={containerRef} className="relative h-[300vh] w-full bg-neutral-900">
+            {/* FIXED: Removed bg-[#E8E8E8] so it defaults to transparent/dark */}
             <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
+
+                {/* DOORS */}
                 <motion.div style={{ x: breachLeftX }} className="absolute top-0 left-0 w-1/2 h-full bg-[#E8E8E8] z-50 border-r border-black/10 flex items-center justify-end pr-4 md:pr-10" />
                 <motion.div style={{ x: breachRightX }} className="absolute top-0 right-0 w-1/2 h-full bg-[#E8E8E8] z-50 border-l border-black/10 flex items-center justify-start pl-4 md:pl-10" />
 
+                {/* TITLE WITH TEXTURE */}
                 <div className="absolute inset-0 z-[60] flex items-center justify-center pointer-events-none">
                     <motion.div style={{ opacity: textOpacity, scale: textScale }} className="relative text-center w-full max-w-4xl mx-auto flex flex-col items-center justify-center">
                         <div className="absolute w-[150%] h-[250%] -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -155,7 +160,9 @@ export function Projects() {
                     </motion.div>
                 </div>
 
-                <div className="w-full h-full max-w-[95%] grid grid-cols-1 md:grid-cols-2 gap-4 p-4 md:p-6 relative z-10">
+                {/* MAIN CONTENT AREA */}
+                <div className="w-full h-[85vh] max-w-[95%] grid grid-cols-1 md:grid-cols-2 gap-4 p-4 md:p-6 relative z-10 mt-auto mb-auto">
+
                     {/* DESIGN CARD */}
                     <div className="relative w-full h-full bg-[#111] rounded-[30px] overflow-hidden border border-white/5 flex flex-col p-6 md:p-10">
                         <div className="flex justify-between items-start mb-4 md:mb-8 shrink-0">
@@ -188,7 +195,8 @@ export function Projects() {
                             <h3 className="text-4xl md:text-6xl font-bold text-black font-[family-name:var(--font-diamond)]">STRATEGY</h3>
                             <span className="px-3 py-1 border border-black/20 rounded-full text-[10px] uppercase tracking-widest text-black/50">Classified</span>
                         </div>
-                        <div className="flex-1 overflow-hidden relative mt-40 px-6 md:px-12 pb-12">
+
+                        <div className="flex-1 overflow-hidden relative mt-4 md:mt-40 px-6 md:px-12 pb-12">
                             <motion.div style={{ y: listY }} className="flex flex-col gap-2">
                                 {strategies.map((strategy, index) => (
                                     <div key={index} onClick={() => openModal(strategy)} className="group relative w-full h-24 md:h-32 border-b border-black/10 flex items-center justify-between cursor-pointer overflow-hidden rounded-lg px-4">
