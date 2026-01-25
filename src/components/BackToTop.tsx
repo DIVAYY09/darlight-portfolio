@@ -24,7 +24,7 @@ export function BackToTop() {
                     {/* THE ROD */}
                     <div
                         className="absolute top-0 w-[2px] h-full bg-white/10"
-                        style={{ left: "50%", translateX: "-50%" }}
+                        style={{ left: "50%", transform: "translateX(-50%)" }}
                     >
                         <div className="w-full h-full bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,#000_2px,#000_4px)] opacity-50" />
                     </div>
