@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export interface ProjectData {
+    id?: string;
     title: string;
     category: string;
     date?: string;
     tags?: string[];
     description?: string;
+    notionLink?: string; // Added for external redirects
 }
 
 interface ProjectModalProps {
@@ -26,15 +28,12 @@ export function ProjectModal({ isOpen, onClose, data }: ProjectModalProps) {
     }, [isOpen]);
 
     // === SIMPLIFIED SCROLL LOCK ===
-    // We removed 'position: fixed' because it causes the page to jump to the top.
-    // 'overflow: hidden' is sufficient to stop scrolling on most modern browsers without the jump.
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "";
         }
-        // Cleanup function
         return () => {
             document.body.style.overflow = "";
         };
@@ -73,7 +72,6 @@ export function ProjectModal({ isOpen, onClose, data }: ProjectModalProps) {
 
                             {/* HEADER */}
                             <div className="h-12 w-full bg-white/5 border-b border-white/10 flex items-center justify-between px-6 shrink-0 z-20">
-
                                 <div className="flex items-center gap-2 group">
                                     <button
                                         onClick={onClose}
@@ -87,7 +85,7 @@ export function ProjectModal({ isOpen, onClose, data }: ProjectModalProps) {
                                 </div>
 
                                 <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest">
-                    // CONFIDENTIAL // {data.category}
+                                    // CONFIDENTIAL // {data.category}
                                 </div>
 
                                 <button onClick={onClose} className="text-white/50 hover:text-white transition-colors">
@@ -107,7 +105,7 @@ export function ProjectModal({ isOpen, onClose, data }: ProjectModalProps) {
                                         transition={{ delay: 0.2 }}
                                         className="block text-yellow-500 text-xs font-mono uppercase tracking-[0.2em] mb-2"
                                     >
-                                        Project ID: {data.date || "2026"}
+                                        Project ID: {data.date || "2025"}
                                     </motion.span>
                                     <motion.h2
                                         initial={{ opacity: 0, y: 20 }}
@@ -126,14 +124,8 @@ export function ProjectModal({ isOpen, onClose, data }: ProjectModalProps) {
                                         transition={{ delay: 0.4 }}
                                         className="col-span-1 space-y-6"
                                     >
-                                        <div>
-                                            <h4 className="text-white/40 text-[10px] uppercase tracking-widest mb-2">Role</h4>
-                                            <p className="text-white font-medium">Lead Strategist</p>
-                                        </div>
-                                        <div>
-                                            <h4 className="text-white/40 text-[10px] uppercase tracking-widest mb-2">Timeline</h4>
-                                            <p className="text-white font-medium">8 Weeks</p>
-                                        </div>
+                                        {/* Removed Role and Timeline sections */}
+
                                         <div>
                                             <h4 className="text-white/40 text-[10px] uppercase tracking-widest mb-2">Tags</h4>
                                             <div className="flex flex-wrap gap-2">
@@ -153,25 +145,46 @@ export function ProjectModal({ isOpen, onClose, data }: ProjectModalProps) {
                                         className="col-span-1 md:col-span-2 text-white/80 text-lg leading-relaxed font-sans pb-10"
                                     >
                                         {data.description ? (
-                                            <p>{data.description}</p>
+                                            <div className="space-y-6">
+                                                {data.description.split('\n').map((line, index) => {
+                                                    if (!line.trim()) return null;
+
+                                                    // Formatting for Bold headers like **OBJECTIVE:**
+                                                    const parts = line.split(/(\*\*.*?\*\*)/);
+                                                    return (
+                                                        <p key={index} className="text-white/80">
+                                                            {parts.map((part, i) =>
+                                                                part.startsWith('**') && part.endsWith('**')
+                                                                    ? <strong key={i} className="text-white font-bold">{part.replace(/\*\*/g, '')}</strong>
+                                                                    : part
+                                                            )}
+                                                        </p>
+                                                    );
+                                                })}
+
+                                                {/* CTA Button for Notion/Behance */}
+                                                {data.notionLink && data.notionLink !== "#" && (
+                                                    <div className="pt-4">
+                                                        <a
+                                                            href={data.notionLink}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-3 px-6 py-3 bg-yellow-500 text-black font-bold uppercase text-xs tracking-[0.2em] rounded-full hover:bg-white transition-all duration-300 group"
+                                                        >
+                                                            View Full Case Study
+                                                            <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
+                                                        </a>
+                                                    </div>
+                                                )}
+                                            </div>
                                         ) : (
-                                            <>
-                                                <p className="mb-6">
-                                                    <strong className="text-white">OBJECTIVE:</strong> To deconstruct the existing user behavior patterns and reconstruct a streamlined flow that maximizes engagement retention. We identified critical friction points in the initial onboarding phase.
+                                            // Fallback default content
+                                            <div className="p-6 bg-white/5 rounded-xl border border-white/5 mt-8">
+                                                <p className="font-mono text-xs text-yellow-500 mb-2">// KEY OUTCOME</p>
+                                                <p className="text-xl font-bold text-white">
+                                                    "The interface doesn't just function; it anticipates."
                                                 </p>
-                                                <p className="mb-6">
-                                                    <strong className="text-white">EXECUTION:</strong> By implementing a modular design system and reducing cognitive load, we achieved a 40% increase in session duration. The strategy focused on "invisible" UX—removing barriers before the user noticed them.
-                                                </p>
-                                                <p className="mb-6">
-                                                    Further analysis revealed that micro-interactions played a pivotal role. By animating key decision points, we guided users subconsciously toward the desired outcomes without using dark patterns. This ethical approach to persuasion resulted in higher long-term trust metrics.
-                                                </p>
-                                                <div className="p-6 bg-white/5 rounded-xl border border-white/5 mt-8">
-                                                    <p className="font-mono text-xs text-yellow-500 mb-2">// KEY OUTCOME</p>
-                                                    <p className="text-xl font-bold text-white">
-                                                        "The interface doesn't just function; it anticipates."
-                                                    </p>
-                                                </div>
-                                            </>
+                                            </div>
                                         )}
                                     </motion.div>
                                 </div>
