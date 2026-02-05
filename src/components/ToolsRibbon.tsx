@@ -3,11 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-// VERIFIED SLUGS (2026 Standards)
+// VERIFIED SLUGS (Updated)
 const tools = [
     { name: "Figma", slug: "figma" },
     { name: "Notion", slug: "notion" },
     { name: "Linear", slug: "linear" },
+    { name: "Cursor", slug: "cursor" }, // Added Cursor IDE
     { name: "Jira", slug: "jira" },
     { name: "Miro", slug: "miro" },
     { name: "Amplitude", slug: "amplitude" },
@@ -15,7 +16,7 @@ const tools = [
     { name: "Dovetail", slug: "dovetail" },
     { name: "Framer", slug: "framer" },
     { name: "Rive", slug: "rive" },
-    { name: "Power BI", slug: "powerbi" },
+    { name: "Power BI", slug: "microsoftpowerbi" }, // Fixed Slug
     { name: "Python", slug: "python" },
     { name: "OpenAI", slug: "openai" },
 ];
@@ -32,7 +33,7 @@ export function ToolsRibbon() {
             </div>
 
             {/* 2. THE RIBBON CONTAINER */}
-            <div className="bg-[#E2D4B7] py-10 rounded-t-[40px] overflow-hidden border-t border-black/5">
+            <div className="bg-[#E2D4B7] py-10 rounded-t-[40px] overflow-hidden border-t border-black/5 hover:bg-[#dcd0b6] transition-colors duration-500">
                 {/* INFINITE LOOP */}
                 <div className="flex relative">
                     <motion.div
@@ -49,7 +50,7 @@ export function ToolsRibbon() {
                             <div key={i} className="flex items-center mx-8 md:mx-12 group">
 
                                 {/* LOGO (Black to match theme) */}
-                                <div className="relative w-8 h-8 md:w-12 md:h-12 mr-4 md:mr-6 opacity-70 group-hover:opacity-100 transition-opacity flex-shrink-0">
+                                <div className="relative w-8 h-8 md:w-12 md:h-12 mr-4 md:mr-6 opacity-70 group-hover:opacity-100 transition-opacity flex-shrink-0 grayscale group-hover:grayscale-0">
                                     <Image
                                         src={`https://cdn.simpleicons.org/${tool.slug}/000000`}
                                         alt={`${tool.name} logo`}
