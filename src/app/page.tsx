@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
 import { useRef, useEffect } from "react";
 import { PreLoader } from "@/components/PreLoader";
 import { FloatingNav } from "@/components/FloatingNav";
@@ -9,7 +8,8 @@ import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
 import { ToolsRibbon } from "@/components/ToolsRibbon";
 import { Contact } from "@/components/Contact";
-import { BackToTop } from "@/components/BackToTop"; // IMPORT THIS
+import { BackToTop } from "@/components/BackToTop";
+import { WaterRipples } from "@/components/WaterRipples"; // IMPORTED
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -35,16 +35,15 @@ export default function Home() {
           style={{ scale, opacity }}
           className="relative w-[95%] h-[92%] rounded-[40px] overflow-hidden bg-black isolate shadow-2xl"
         >
-          {/* IMAGE */}
+          {/* IMAGE (Replaced with WaterRipples) */}
           <div className="absolute inset-0 w-full h-full -z-10">
-            <Image
-              src="/hero-portrait.png"
-              alt="Portrait"
-              fill
-              className="object-cover object-[center_30%] absolute inset-0"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 z-10" />
+            {/* UPDATED: translateY={160} 
+               Increased from 100 to 160 to shift the image further down.
+            */}
+            <WaterRipples imageUrl="/hero-portrait.png" translateY={160} />
+
+            {/* Gradient Overlay (Preserved from your code) */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 z-10 pointer-events-none" />
           </div>
 
           <div className="relative z-20 h-full w-full grid grid-cols-1 md:grid-cols-12 p-5 md:p-10 pointer-events-none">
@@ -116,7 +115,7 @@ export default function Home() {
         <Contact />
       </div>
 
-      {/* 6. BACK TO TOP LEVER (ADDED HERE) */}
+      {/* 6. BACK TO TOP LEVER */}
       <BackToTop />
 
     </main>
