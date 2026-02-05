@@ -190,7 +190,7 @@ export function Projects() {
                 <div className="w-full h-[85vh] max-w-[95%] grid grid-cols-1 md:grid-cols-2 gap-6 p-4 md:p-6 relative z-10 mt-auto mb-auto">
 
                     {/* === DESIGN CARD === */}
-                    <div className="group relative w-full h-full bg-neutral-900/80 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 flex flex-col p-6 md:p-10 transition-all hover:border-white/30 shadow-2xl">
+                    <div className="group relative w-full h-full bg-neutral-900/90 backdrop-blur-md rounded-[30px] overflow-hidden border border-white/10 flex flex-col p-6 md:p-10 transition-all hover:border-white/30 shadow-2xl">
                         <HUDDecorations color="yellow" />
 
                         <div className="flex justify-between items-start mb-4 md:mb-8 shrink-0 relative z-20">
@@ -219,8 +219,8 @@ export function Projects() {
                         </div>
                     </div>
 
-                    {/* === STRATEGY CARD === */}
-                    <div className="group relative w-full h-full bg-neutral-900/80 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 flex flex-col transition-all hover:border-white/30 shadow-2xl">
+                    {/* === STRATEGY CARD (UPDATED: High contrast list items) === */}
+                    <div className="group relative w-full h-full bg-neutral-900/90 backdrop-blur-md rounded-[30px] overflow-hidden border border-white/10 flex flex-col transition-all hover:border-white/30 shadow-2xl">
                         <HUDDecorations color="blue" />
 
                         <div className="absolute top-0 left-0 w-full p-8 md:p-12 z-30 bg-gradient-to-b from-neutral-900 via-neutral-900 to-transparent h-40 flex justify-between items-start pointer-events-none">
@@ -231,16 +231,16 @@ export function Projects() {
                         <div className="flex-1 overflow-hidden relative mt-4 md:mt-40 px-6 md:px-12 pb-12 z-20">
                             <motion.div style={{ y: listY }} className="flex flex-col gap-3">
                                 {strategies.map((strategy, index) => (
-                                    <div key={index} onClick={() => openModal(strategy)} className="group/item relative w-full h-24 md:h-32 border border-white/5 bg-white/[0.02] hover:bg-white/[0.1] hover:border-white/30 flex items-center justify-between cursor-pointer overflow-hidden px-6 transition-all duration-300 rounded-lg">
+                                    <div key={index} onClick={() => openModal(strategy)} className="group/item relative w-full h-24 md:h-32 border border-white/10 bg-black/40 hover:bg-black/60 hover:border-blue-500/50 flex items-center justify-between cursor-pointer overflow-hidden px-6 transition-all duration-300 rounded-lg">
                                         {/* Hover Glow Bar */}
                                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 transform scale-y-0 group-hover/item:scale-y-100 transition-transform duration-300 origin-bottom" />
 
                                         <div className="flex flex-col relative z-10">
-                                            <span className="text-[10px] font-mono text-white/30 mb-2 tracking-widest group-hover/item:text-blue-400 transition-colors">ID: {strategy.id} // {strategy.category}</span>
-                                            <h4 className="text-xl md:text-2xl font-bold uppercase font-[family-name:var(--font-diamond)] text-white/80 group-hover/item:text-white">{strategy.title}</h4>
+                                            <span className="text-[10px] font-mono text-white/50 mb-2 tracking-widest group-hover/item:text-blue-400 transition-colors">ID: {strategy.id} // {strategy.category}</span>
+                                            <h4 className="text-xl md:text-2xl font-bold uppercase font-[family-name:var(--font-diamond)] text-white group-hover/item:text-blue-100">{strategy.title}</h4>
                                         </div>
 
-                                        <span className="relative z-10 text-[10px] font-mono text-white/30 border border-white/10 px-2 py-1 group-hover/item:text-white group-hover/item:border-white/30 transition-colors rounded">
+                                        <span className="relative z-10 text-[10px] font-mono text-white/50 border border-white/10 px-2 py-1 group-hover/item:text-white group-hover/item:border-white/30 transition-colors rounded">
                                             {strategy.date}
                                         </span>
                                     </div>
