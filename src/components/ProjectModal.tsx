@@ -126,8 +126,6 @@ export function ProjectModal({ isOpen, onClose, data }: ProjectModalProps) {
                                         transition={{ delay: 0.4 }}
                                         className="col-span-1 space-y-6"
                                     >
-                                        {/* Removed Role and Timeline sections */}
-
                                         <div>
                                             <h4 className="text-white/40 text-[10px] uppercase tracking-widest mb-2">Tags</h4>
                                             <div className="flex flex-wrap gap-2">
@@ -148,6 +146,22 @@ export function ProjectModal({ isOpen, onClose, data }: ProjectModalProps) {
                                     >
                                         {data.description ? (
                                             <div className="space-y-6">
+
+                                                {/* --- MOVED: CTA Button is now BEFORE the text --- */}
+                                                {data.notionLink && data.notionLink !== "#" && (
+                                                    <div className="pb-6 border-b border-white/10 mb-6">
+                                                        <a
+                                                            href={data.notionLink}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-3 px-6 py-3 bg-yellow-500 text-black font-bold uppercase text-xs tracking-[0.2em] rounded-full hover:bg-white transition-all duration-300 group"
+                                                        >
+                                                            View Full Case Study
+                                                            <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
+                                                        </a>
+                                                    </div>
+                                                )}
+
                                                 {data.description.split('\n').map((line, index) => {
                                                     if (!line.trim()) return null;
 
@@ -163,21 +177,6 @@ export function ProjectModal({ isOpen, onClose, data }: ProjectModalProps) {
                                                         </p>
                                                     );
                                                 })}
-
-                                                {/* CTA Button for Notion/Behance */}
-                                                {data.notionLink && data.notionLink !== "#" && (
-                                                    <div className="pt-4">
-                                                        <a
-                                                            href={data.notionLink}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="inline-flex items-center gap-3 px-6 py-3 bg-yellow-500 text-black font-bold uppercase text-xs tracking-[0.2em] rounded-full hover:bg-white transition-all duration-300 group"
-                                                        >
-                                                            View Full Case Study
-                                                            <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
-                                                        </a>
-                                                    </div>
-                                                )}
                                             </div>
                                         ) : (
                                             // Fallback default content

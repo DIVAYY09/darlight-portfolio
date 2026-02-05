@@ -5,10 +5,39 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { ProjectModal, ProjectData } from "./ProjectModal";
 
-// STRATEGY DATA (Your Latest 2025 Data)
+// UPDATED STRATEGY DATA
 const strategies: ProjectData[] = [
     {
         id: "01",
+        title: "FIGMA REALITY MODE",
+        category: "Product Design",
+        date: "2025",
+        tags: ["Product Design", "Figma", "3D", "Prototyping"],
+        description: `**OBJECTIVE:** Designers today work in a 'pixel-perfect' hallucination. We design on 27-inch 5K Retina displays, but our users experience our products on cracked screens, under direct sunlight, with thumb-reach limitations. This disconnect creates a Context Gap: the dangerous space between what we design and what is actually usable.
+
+**EXECUTION:** The Pivot: Early explorations focused on a floating 'Picture-in-Picture' window (similar to YouTube). However, user testing revealed a critical flaw: it obstructed the canvas. We killed the floating window and pivoted to utilizing the Properties Panel.
+Engineering Empathy: Integrating 3D into a performance-critical tool like Figma posed a significant technical risk. The execution relied on Low-Poly Architecture (<5k polys), Local Caching for zero-latency, and Bi-Directional Sync to create a 'live wire' between the canvas and the 3D shell.
+
+**IMPACT:** By shifting validation from an 'active task' to a 'passive state,' we changed the workflow economics.
+The Efficiency Delta: Old Workflow (Export -> AirDrop -> Check) took ~2 minutes per check. Reality Mode takes 0 steps.
+The Cumulative ROI: For a senior product designer validating 20 times a day, Reality Mode reclaims 40 minutes of daily focus time.`,
+        notionLink: "https://www.behance.net/gallery/243579821/Figma-Reality-Mode"
+    },
+    {
+        id: "02",
+        title: "AMAZON MUSIC DISCOVERY",
+        category: "Product Design", // UPDATED CATEGORY
+        date: "2025",
+        tags: ["Retention", "UX Research"],
+        description: `**OBJECTIVE:** To reduce 'discovery friction' and increase daily engagement retention for Amazon Music users compared to Spotify’s algorithmic dominance.
+
+**EXECUTION:** Conducted research on Prime users' listening habits. Proposed a modular discovery engine that leverages Alexa and the Amazon ecosystem to create emotionally engaging, context-aware music suggestions.
+
+**IMPACT:** Designed a framework to improve Daily Listening Time (DLT) and increase conversion rates for 'Unlimited' tier upgrades by reducing the cognitive load required to find new music.`,
+        notionLink: "https://www.behance.net/gallery/241165145/Amazon-Music-Case-Study"
+    },
+    {
+        id: "03",
         title: "AI MARKET INTELLIGENCE AGENT",
         category: "Autonomous Agent",
         date: "2025",
@@ -21,7 +50,7 @@ const strategies: ProjectData[] = [
         notionLink: "https://www.notion.so/AI-Market-Intelligence-Agent-MIA-2d2d3b85d75a80668553c39060259ca9"
     },
     {
-        id: "02",
+        id: "04",
         title: "THE DOMINO'S 11PM HACK",
         category: "Product Tear-down",
         date: "2025",
@@ -34,20 +63,7 @@ const strategies: ProjectData[] = [
         notionLink: "https://www.notion.so/Why-Domino-s-hacks-your-phone-at-11-PM-2eb764bd9a3e8059b322fc4f82978cf3"
     },
     {
-        id: "03",
-        title: "AMAZON MUSIC DISCOVERY",
-        category: "UX Case Study",
-        date: "2025",
-        tags: ["Retention", "UX Research"],
-        description: `**OBJECTIVE:** To reduce 'discovery friction' and increase daily engagement retention for Amazon Music users compared to Spotify’s algorithmic dominance.
-
-**EXECUTION:** Conducted research on Prime users' listening habits. Proposed a modular discovery engine that leverages Alexa and the Amazon ecosystem to create emotionally engaging, context-aware music suggestions.
-
-**IMPACT:** Designed a framework to improve Daily Listening Time (DLT) and increase conversion rates for 'Unlimited' tier upgrades by reducing the cognitive load required to find new music.`,
-        notionLink: "https://www.behance.net/gallery/241165145/Amazon-Music-Case-Study"
-    },
-    {
-        id: "04",
+        id: "05",
         title: "CIRAYU: GOVT. AUTOMATION",
         category: "Product Design",
         date: "2025",
@@ -61,7 +77,7 @@ const strategies: ProjectData[] = [
     },
 ];
 
-// DESIGN DATA (Your Images)
+// DESIGN DATA (INTACT)
 const designs = [
     {
         img: "/design-1.png",
@@ -140,7 +156,7 @@ export function Projects() {
 
     return (
         <section ref={containerRef} className="relative h-[300vh] w-full bg-neutral-900">
-            {/* FIXED: Removed bg-[#E8E8E8] so it defaults to transparent/dark */}
+            {/* STICKY VIEWPORT */}
             <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
 
                 {/* DOORS */}
