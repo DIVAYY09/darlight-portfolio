@@ -6,7 +6,6 @@ import { PreLoader } from "@/components/PreLoader";
 import { FloatingNav } from "@/components/FloatingNav";
 import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
-import { ToolsRibbon } from "@/components/ToolsRibbon";
 import { Contact } from "@/components/Contact";
 import { BackToTop } from "@/components/BackToTop";
 import { WaterRipples } from "@/components/WaterRipples"; // IMPORTED
@@ -105,10 +104,6 @@ export default function Home() {
         <Projects />
       </div>
 
-      {/* 4. TOOLS RIBBON */}
-      <div className="relative z-20 bg-black">
-        <ToolsRibbon />
-      </div>
 
       {/* 5. CONTACT */}
       <div id="contact" className="relative z-20">
