@@ -50,7 +50,7 @@ export function About() {
             ref={containerRef}
             onMouseMove={handleMouseMove}
             onTouchMove={handleTouchMove} // ADDED: Touch Listener
-            className="relative min-h-screen w-full bg-[#E8E8E8] rounded-t-[40px] flex flex-col justify-center items-start pl-6 md:pl-20 overflow-hidden cursor-none"
+            className="relative min-h-screen w-full bg-[#E8E8E8] flex flex-col justify-center items-start pl-6 md:pl-20 overflow-hidden cursor-none"
         >
             {/* 1. "DECLASSIFIED" HEADER */}
             <div className="absolute top-12 md:top-16 left-6 md:left-20 z-40 pointer-events-none">

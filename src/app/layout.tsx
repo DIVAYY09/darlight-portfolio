@@ -29,6 +29,13 @@ const space = localFont({
   display: "swap",
 });
 
+// 4. Setup Fibonacci Journey (Doodle/Handwritten Text)
+const fibonacci = localFont({
+  src: "./fonts/Fibonaccy Journey ( Personal Use).ttf",
+  variable: "--font-fibonacci",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Darlight Studio",
   description: "Portfolio of Darlight Studio",
@@ -43,7 +50,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         // Add the new variables here so Tailwind can see them
-        className={`${geistSans.variable} ${geistMono.variable} ${diamond.variable} ${space.variable} antialiased bg-[#f8f8f8]`}
+        className={`${geistSans.variable} ${geistMono.variable} ${diamond.variable} ${space.variable} ${fibonacci.variable} antialiased bg-[#f8f8f8]`}
       >
         <SmoothScroll>{children}</SmoothScroll>
       </body>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { PreLoader } from "@/components/PreLoader";
 import { FloatingNav } from "@/components/FloatingNav";
@@ -22,11 +22,12 @@ interface Sticker {
 const STICKY_COLORS = ["#fef08a", "#fbcfe8", "#bfdbfe", "#bbf7d0", "#fed7aa"];
 
 export default function Home() {
-  const containerRef = useRef(null);
   const heroRef = useRef(null);
+  const containerRef = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end start"]
   });
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
@@ -67,6 +68,8 @@ export default function Home() {
 
       {/* 1. HERO SECTION */}
       <div id="home" className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden z-0">
+
+        {/* 1. The Original Animated Card */}
         <motion.div
           ref={heroRef}
           style={{ scale, opacity }}
@@ -81,11 +84,16 @@ export default function Home() {
 
             {/* Gradient Overlay (Preserved from your code) */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 z-10 pointer-events-none" />
+            
+            {/* Dark Gradient + Blur on the right side for depth-of-field */}
+            <div className="absolute right-0 top-0 bottom-0 w-full md:w-1/2 bg-gradient-to-l from-black/60 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-full md:w-1/2 backdrop-blur-[6px] [mask-image:linear-gradient(to_left,black,transparent)] z-10 pointer-events-none" />
           </div>
+
 
           <div className="relative z-20 h-full w-full grid grid-cols-1 md:grid-cols-12 p-5 md:p-10 pointer-events-none">
             {/* Left Column */}
-            <div className="col-span-1 md:col-span-6 flex flex-col justify-center pb-52 h-full pointer-events-auto overflow-visible">
+            <div className="col-span-1 md:col-span-5 flex flex-col justify-center pb-52 h-full pointer-events-auto overflow-visible">
               <div 
                 className="w-full -rotate-6 ml-0 md:ml-4 lg:ml-8 mt-16 mb-4 self-start"
                 style={{ transformOrigin: 'left center' }}
@@ -265,11 +273,76 @@ export default function Home() {
             </AnimatePresence>
           </div>
         </motion.div>
+
+        {/* 2. The New Text & Arrow (Placed outside the card so they don't clip, but animated together) */}
+        <motion.div style={{ scale, opacity }} className="absolute z-40 right-[4%] md:right-[2%] top-[50%] translate-x-4 translate-y-2 whitespace-nowrap">
+          <div 
+            className="text-[#f5bd02] text-3xl md:text-4xl lg:text-5xl tracking-wider -rotate-3 inline-block whitespace-nowrap overflow-visible py-2"
+            style={{ fontFamily: 'var(--font-fibonacci)' }}
+          >
+            <motion.div
+              initial={{ clipPath: "inset(0 100% 0 0)" }}
+              animate={{ clipPath: "inset(0 0% 0 0)" }}
+              transition={{ delay: 3.5, duration: 3.0, ease: "easeInOut" }}
+              style={{ display: "inline-block", padding: "0.2em 0.5em 0.2em 0.1em" }}
+            >
+              <span>I&apos;m a product</span><br/><span>manager :)</span>
+            </motion.div>
+          </div>
+        </motion.div>
+        
+        <motion.div style={{ scale, opacity }} className="absolute z-40 right-[15%] md:right-[18%] top-[38%] w-32 h-24">
+          <div className="w-full h-full pointer-events-none overflow-visible opacity-80 scale-x-[-1]">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" className="overflow-visible drop-shadow-sm">
+               {/* arrow body */}
+               <motion.path 
+                 d="M 90 20 Q 50 10, 20 80"
+                 stroke="#f5bd02"
+                 strokeWidth="3"
+                 strokeLinecap="round"
+                 initial={{ pathLength: 0 }}
+                 animate={{ pathLength: 1 }}
+                 transition={{ delay: 3.5, duration: 3.0, type: "spring", stiffness: 100, damping: 20 }}
+               />
+               {/* arrow head 1 */}
+               <motion.path 
+                 d="M 20 80 L 40 72"
+                 stroke="#f5bd02"
+                 strokeWidth="3"
+                 strokeLinecap="round"
+                 initial={{ pathLength: 0 }}
+                 animate={{ pathLength: 1 }}
+                 transition={{ delay: 6.5, duration: 0.5, type: "spring", stiffness: 200 }}
+               />
+               {/* arrow head 2 */}
+               <motion.path 
+                 d="M 20 80 L 25 55"
+                 stroke="#f5bd02"
+                 strokeWidth="3"
+                 strokeLinecap="round"
+                 initial={{ pathLength: 0 }}
+                 animate={{ pathLength: 1 }}
+                 transition={{ delay: 6.6, duration: 0.5, type: "spring", stiffness: 200 }}
+               />
+               {/* slight scribble effect - secondary line */}
+               <motion.path 
+                 d="M 85 25 Q 45 15, 15 85"
+                 stroke="#f5bd02"
+                 strokeWidth="1.5"
+                 strokeLinecap="round"
+                 opacity={0.6}
+                 initial={{ pathLength: 0 }}
+                 animate={{ pathLength: 1 }}
+                 transition={{ delay: 3.6, duration: 3.0, type: "spring", stiffness: 100, damping: 20 }}
+               />
+            </svg>
+          </div>
+        </motion.div>
+
       </div>
 
       {/* 2. ABOUT SECTION */}
-      <div id="about" className="relative z-10 w-full min-h-screen bg-transparent mb-0">
-        <div className="h-[20vh]" />
+      <div id="about" className="relative z-10 w-full min-h-screen bg-[#E8E8E8] mb-0 pt-10 md:pt-20 rounded-t-[40px]">
         <About />
       </div>
 
